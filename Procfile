@@ -1,1 +1,1 @@
-web: npm start
+web: tsc scripts-ts/*.ts --outDir scripts
