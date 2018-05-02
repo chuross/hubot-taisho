@@ -12,6 +12,7 @@
   "dependencies": {
     "@types/hubot": "^2.19.2",
     "@types/node": "^8.10.11",
+    "coffee-script": "^1.12.7",
     "hubot": "^2.19.0",
     "hubot-heroku-keepalive": "^1.0.3",
     "hubot-line-messaging": "^0.6.0",
