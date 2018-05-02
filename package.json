@@ -13,7 +13,6 @@
     "@types/hubot": "^2.19.2",
     "@types/node": "^8.10.11",
     "hubot": "^2.19.0",
-    "hubot-help": "^0.2.2",
     "hubot-heroku-keepalive": "^1.0.3",
     "hubot-line-messaging": "^0.6.0",
     "typescript": "^2.8.3"
