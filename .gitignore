@@ -1,5 +1,4 @@
 /node_modules
 /scripts
-/scripts/*.ts
 .DS_Store*
 .hubot_history
