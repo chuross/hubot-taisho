@@ -5,6 +5,8 @@ module.exports = (robot: hubot.Robot<any>): void => {
 
   robot.hear(/^大将(！|!)$/, res => {
     res.reply('ヘイ！お待ち！');
-    res.reply(new LineMessaging.SendImage('https://www.instagram.com/p/BiQUYnElTyu/media?size=m', 'https://www.instagram.com/p/BiQUYnElTyu/media?size=l'))
+
+    const sushiBaseUrl = 'https://www.instagram.com/p/BiQUYnElTyu/media';
+    res.reply(new LineMessaging.SendImage(`${sushiBaseUrl}?size=l`, `${sushiBaseUrl}?size=l`));
   });
 };
