@@ -5,8 +5,8 @@
   "author": "chuross",
   "description": "A simple helpful robot for your Company",
   "scripts": {
-    "start": "npm run compile && bin/hubot",
-    "start:line": "npm run compile && bin/hubot -a line-messaging",
+    "start": "bin/hubot",
+    "start:line": "bin/hubot -a line-messaging",
     "compile": "tsc scripts-ts/*.ts --outDir scripts"
   },
   "dependencies": {

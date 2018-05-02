@@ -1,8 +1,6 @@
-import hubot = require('hubot');
-import LineMessaging = require('hubot-line-messaging');
+const LineMessaging = require('hubot-line-messaging');
 
-module.exports = (robot: hubot.Robot<any>): void => {
-
+module.exports = (robot) => {
   robot.hear(/^大将(！|!)$/, res => {
     res.reply('ヘイ！お待ち！');
 
