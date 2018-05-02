@@ -1,1 +1,1 @@
-web: tsc scripts-ts/*.ts --outDir scripts
+web: npm run start:line
