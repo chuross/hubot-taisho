@@ -34,7 +34,7 @@ module.exports = robot => {
 
     const title = res.match[3];
     if (title == '') {
-      res.reply('用件はなんだい？');
+      res.reply('用件が必要だよ');
       return;
     }
 
