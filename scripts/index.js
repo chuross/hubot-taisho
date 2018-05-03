@@ -16,6 +16,17 @@ const sushiImageUrls = [
 ];
 
 module.exports = robot => {
+  robot.hear(/^大将(!|！)自己紹介$/, res => {
+    res.reply([
+      '大将！いつもの - いつものあれ用意してますぜ',
+      '大将！アメッシュ - 関東地方の雨雲画像を表示しやすぜ',
+      '大将！予定 <日付> <タスク名> - 指定された日付でタスクをTodoistに追加しやすぜ',
+      '  <日付> - 今日・明日・来週・来月またはmm-dd・yyyy-mm-dd',
+      '大将！献立 <キーワード>',
+      '  <キーワード> - 材料や料理名など'
+    ].join("\n"));
+  });
+
   robot.hear(/^大将(!|！)いつもの$/, res => {
     const index = Math.floor(Math.random() * (sushiImageUrls.length - 0));
     const sushiBaseUrl = sushiImageUrls[index];
