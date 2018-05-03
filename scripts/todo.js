@@ -43,6 +43,6 @@ module.exports = robot => {
       commands: commandString
     }).then(result => {
       res.reply(`予定を登録しといたよ！\n${title}`);
-    });
+    }).catch(error => console.log(error));
   });
 };
