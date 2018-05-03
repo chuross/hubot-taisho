@@ -21,10 +21,7 @@ module.exports = robot => {
     const sushiBaseUrl = sushiImageUrls[index];
     
     if (Utils.isLine) {
-      res.reply([
-        'へいお待ち！',
-        new LineMessaging.SendImage(`${sushiBaseUrl}/media?size=l`, `${sushiBaseUrl}/media?size=s`)
-      ]);
+      res.reply('へいお待ち！', new LineMessaging.SendImage(`${sushiBaseUrl}/media?size=l`, `${sushiBaseUrl}/media?size=s`));
     } else {
       res.reply(`ヘイお待ち！\n${sushiBaseUrl}/media?size=l`);
     }
