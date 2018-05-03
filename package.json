@@ -11,6 +11,7 @@
     "sync": "git push origin master && git push heroku master"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "hubot": "^2.19.0",
     "hubot-heroku-keepalive": "^1.0.3",
     "hubot-line-messaging": "^0.6.0"
