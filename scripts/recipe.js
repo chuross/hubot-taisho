@@ -33,6 +33,8 @@ module.exports = robot => {
         return;
       }
 
+      console.log(result);
+
       const messageBuilder = new LineMessaging.BuildTemplateMessage.init('へいお待ち！献立用意しといたよ！');
       
       result.forEach(item => {
