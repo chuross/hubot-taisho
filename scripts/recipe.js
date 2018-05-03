@@ -26,7 +26,7 @@ module.exports = robot => {
         recipeTime: $node.find('.txt-frame .recipeTime').text()
       };
     }).get())
-    .then(result => result.slice(0, 5))
+    .then(result => result.slice(0, 3))
     .then(result => {
       if (!Utils.isLine) {
         res.reply('すまないねぇこの環境だと非対応だよ');
