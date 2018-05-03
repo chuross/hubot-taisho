@@ -27,11 +27,13 @@ module.exports = robot => {
         recipeTime: $node.find('.txt-frame .recipeTime').text()
       };
     }).get())
-    .then(result => result.slice(0, 5))
+    .then(result => result.slice(0, 10))
     .then(result => {
-      // res.reply('ヘイお待ち！献立用意しといたよ！', result.map(item => `${item.title} / ${item.recipeTime} ${item.linkUrl}`).join("\n"))
+      if (!Utils.isLine) {
+        res.reply('ヘイお待ち！献立用意しといたよ！', result.map(item => `${item.title} / ${item.recipeTime} ${item.linkUrl}`).join("\n"))
+        return;
+      }
 
-      // return;
       const messageBuilder = new LineMessaging.BuildTemplateMessage.init('へいお待ち！献立用意しといたよ！');
       
       result.forEach(item => {
