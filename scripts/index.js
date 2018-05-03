@@ -16,7 +16,7 @@ const sushiImageUrls = [
 ];
 
 module.exports = robot => {
-  robot.hear(/^大将(!|！)自己紹介$/, res => {
+  robot.hear(/^大将(!|！)$/, res => {
     res.reply([
       '大将！いつもの - いつものあれ用意してますぜ',
       '大将！アメッシュ - 関東地方の雨雲画像を表示しやすぜ',
@@ -24,7 +24,7 @@ module.exports = robot => {
       '  <日付> - 今日・明日・来週・来月またはmm-dd・yyyy-mm-dd',
       '大将！献立 <キーワード>',
       '  <キーワード> - 材料や料理名など'
-    ].join("\n"));
+    ].join("\n\n"));
   });
 
   robot.hear(/^大将(!|！)いつもの$/, res => {
