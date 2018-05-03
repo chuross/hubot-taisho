@@ -4,6 +4,6 @@ const imageUrl = 'https://hailstorm.c.yimg.jp/iwiz-weather/raincloud/1525318200/
 
 module.exports = robot => {
   robot.hear(/^大将！アメッシュ$/, res => {
-    res.replay(new LineMessaging.SendImage(imageUrl, imageUrl));
+    res.reply(new LineMessaging.SendImage(imageUrl, imageUrl));
   });
 };
