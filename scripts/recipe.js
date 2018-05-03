@@ -3,7 +3,8 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const Utils = require('./libs/Utils');
 
-const baseUrl = 'https://oceans-nadia.com/search';
+const baseUrl = 'https://oceans-nadia.com';
+const searchUrl = `${baseUrl}/search`;
 
 module.exports = robot => {
   robot.hear(/^大将(!|！)献立 (.+)$/, res => {
@@ -13,7 +14,7 @@ module.exports = robot => {
       return;
     }
 
-    axios.get(`${baseUrl}?q=${encodeURIComponent(query)}`, {
+    axios.get(`${searchUrl}?q=${encodeURIComponent(query)}`, {
       responseType: 'text'
     })
     .then(response => cheerio.load(response.data))
@@ -21,8 +22,8 @@ module.exports = robot => {
       $node = $(node);
       return {
         thumbnailUrl: $node.find('.photo-frame img').attr('src'),
-        linkUrl: $node.find('.photo-frame a').attr('href'),
-        title: $node.find('.txt-frame .recipe-titlelink').text(),
+        linkUrl: $node.find('.txt-frame .recipe-title a').attr('href'),
+        title: baseUrl + $node.find('.txt-frame .recipe-titlelink').text(),
         recipeTime: $node.find('.txt-frame .recipeTime').text()
       };
     }).get())
