@@ -30,11 +30,8 @@ module.exports = robot => {
       const messageBuilder = new LineMessaging.BuildTemplateMessage.init('上映中の映画だよ！');
       
       result.forEach(item => {
-        console.log(item);
-        messageBuilder.carousel({
-          thumbnailImageUrl: item.thumbnailUrl,
-          title: item.title,
-          text: '-'
+        messageBuilder.confirm({
+          text: item.title
         });
         messageBuilder.action('uri', {
           label: 'ブラウザで見る',
