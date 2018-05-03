@@ -20,7 +20,7 @@ module.exports = robot => {
         linkUrl: `${baseUrl}${$node.find('h3 a').attr('href')}`
       };
     }).get())
-    .then(result => result.slice(0, 10))
+    .then(result => result.slice(0, 5))
     .then(result => {
       if (!Utils.isLine) {
         res.reply(result.map(item => `${item.title} ${item.linkUrl}`).join("\n"));
