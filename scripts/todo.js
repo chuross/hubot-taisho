@@ -1,7 +1,7 @@
 const axios = require('axios');
 const uuidv4 = require('uuid/v4');
 
-const apiBaseUrl = 'https://todoist.com/api/v7/';
+const apiBaseUrl = 'https://todoist.com/api/v7';
 const apiToken = process.env.HUBOT_TODOIST_TOKEN;
 
 const adminUsers = (process.env.HUBOT_ADMIN || '').split(',');
