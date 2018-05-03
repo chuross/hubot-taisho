@@ -35,7 +35,7 @@ module.exports = robot => {
         messageBuilder.carousel({
           thumbnailImageUrl: item.thumbnailUrl,
           title: item.title,
-          text: `上映日: ${item.startAt} / 上映時間: ${movieTime}`
+          text: `上映日: ${item.startAt} / 上映時間: ${item.movieTime}`
         });
         messageBuilder.action('uri', {
           label: 'ブラウザで見る',
