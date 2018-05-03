@@ -6,8 +6,6 @@ const baseUrl = 'https://oceans-nadia.com/search';
 
 module.exports = robot => {
   robot.hear(/^大将(!|！)献立 (.+)$/, res => {
-    console.log('あいよ！');
-
     const query = res.match[2];
     if (query == '') {
       res.reply('献立にはキーワードが必要だよ！');
@@ -28,8 +26,7 @@ module.exports = robot => {
       };
     }).get())
     .then(result => {
-      const messageBuilder = new LineMessaging.BuildTemplateMessage()
-        .init('へいお待ち！献立用意しといたよ！');
+      const messageBuilder = new LineMessaging.BuildTemplateMessage.init('へいお待ち！献立用意しといたよ！');
       
       result.forEach(item => {
         messageBuilder.carousel({
