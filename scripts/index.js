@@ -2,7 +2,7 @@ const LineMessaging = require('hubot-line-messaging');
 const Utils = require('./libs/Utils');
 
 const sushiImageUrls = [
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMcVb5qh8oOUNswJPB3XmGkmTs0odQ9AQ8P0ba-OuFVfbwEBFR'
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRb2E3lfTyr1WzbewSvt37rwe9yXjSDpQzdSxb3_iIl5aIGbSV19w'
 ];
 
 module.exports = robot => {
