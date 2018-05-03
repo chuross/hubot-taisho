@@ -28,13 +28,9 @@ module.exports = robot => {
     }).get())
     .then(result => result.slice(0, 3))
     .then(result => {
-      if (!Utils.isLine) {
-        res.reply('すまないねぇこの環境だと非対応だよ');
-        return;
-      }
+      res.reply('ヘイお待ち！献立用意しといたよ！', result.join("\n"))
 
-      console.log(result);
-
+      return;
       const messageBuilder = new LineMessaging.BuildTemplateMessage.init('へいお待ち！献立用意しといたよ！');
       
       result.forEach(item => {
