@@ -12,7 +12,7 @@ const fetch = axios.create({
 });
 
 module.exports = robot => {
-  robot.hear(/^大将(！|!)予定 (.+)/, res => {
+  robot.hear(/^大将(！|!)予定 (.+) (.+)/, res => {
     if (!adminUsers.includes(res.message.user.id)) {
       res.reply("お客さんそいつは聞けないねぇ\n権限振ってもらいな");
       return;
@@ -23,8 +23,20 @@ module.exports = robot => {
       return;
     }
 
-    const title = res.match.length == 3 ? res.match[2] : null;
-    if (!title) {
+    const dateString = res.match[2];
+    if (dateString == '') {
+      res.reply([
+        'いつの予定なんだい？',
+        'フォーマットはこれに対応してるよ',
+        '直近: 今日, 明日, 来週, 来月',
+        '月日: mm月dd日, mm-dd',
+        '年月日 yyyy年mm月dd日, yyyy-mm-dd'
+      ].join("\n"));
+      return;
+    }
+
+    const title = res.match[3];
+    if (title == '') {
       res.reply('用件はなんだい？');
       return;
     }
@@ -36,6 +48,7 @@ module.exports = robot => {
         temp_id: uuidv4(),
         args: {
           content: title,
+          date_string: dateString,
           project_id: targetProjectId
         }
       }
@@ -45,7 +58,7 @@ module.exports = robot => {
       token: apiToken,
       commands: commandString
     }).then(result => {
-      res.reply(`予定を登録しといたよ！\n${title}`);
+      res.reply(`予定を登録しといたよ！Todoistで確認してくんな！\nタスク: ${title}`);
     }).catch(error => console.log(error));
   });
 };
