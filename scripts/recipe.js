@@ -29,6 +29,11 @@ module.exports = robot => {
     }).get())
     .then(result => result.slice(0, 10))
     .then(result => {
+      if (result.length === 0) {
+        res.reply('すまないねぇこの献立は用意できないよ');
+        return;
+      }
+
       if (!Utils.isLine) {
         res.reply('ヘイお待ち！献立用意しといたよ！', result.map(item => `${item.title} / ${item.recipeTime} ${item.linkUrl}`).join("\n"))
         return;
