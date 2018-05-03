@@ -34,7 +34,7 @@ module.exports = robot => {
         return;
       }
 
-      const messageBuilder = new LineMessaging.BuildTemplateMessage.init('へいお待ち！献立用意しといたよ！');
+      const messageBuilder = new LineMessaging.BuildTemplateMessage.init('献立だよ！');
       
       result.forEach(item => {
         messageBuilder.carousel({
@@ -48,7 +48,7 @@ module.exports = robot => {
         })
       });
       
-      res.reply(messageBuilder.build());
+      res.reply('ヘイお待ち！献立用意しといたよ！', messageBuilder.build());
     })
     .catch(error => console.log(error))
   });
