@@ -1,4 +1,5 @@
 const axios = require('axios');
+const uuidv1 = require('uuid/v1');
 
 const apiBaseUrl = 'https://todoist.com/api/v7/';
 const apiToken = process.env.HUBOT_TODOIST_TOKEN;
@@ -40,6 +41,8 @@ module.exports = robot => {
 
     fetch.post('/sync', {
       token: apiToken,
+      uuid: uuidv1(),
+      temp_id: uuidv1(),
       commands: commandString
     }).then(result => {
       res.reply(`予定を登録しといたよ！\n${title}`);

@@ -14,7 +14,8 @@
     "axios": "^0.18.0",
     "hubot": "^2.19.0",
     "hubot-heroku-keepalive": "^1.0.3",
-    "hubot-line-messaging": "^0.6.0"
+    "hubot-line-messaging": "^0.6.0",
+    "uuid": "^3.2.1"
   },
   "engines": {
     "node": "8.x.x"
