@@ -46,6 +46,7 @@ module.exports = robot => {
         })
       });
       
+      console.log(messageBuilder.build());
       res.reply(messageBuilder.build());
     })
     .catch(error => console.log(error))
