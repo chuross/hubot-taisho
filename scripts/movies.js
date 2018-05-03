@@ -22,7 +22,7 @@ module.exports = robot => {
     }).get())
     .then(result => result.slice(0, 10))
     .then(result => {
-      if (Utils.isLine) {
+      if (!Utils.isLine) {
         res.reply('ヘイお待ち！上映中の映画だよ！', result.map(item => `${item.title}\n${item.linkUrl}`).join("\n\n"));
         return;
       }
