@@ -20,7 +20,7 @@ module.exports = robot => {
         linkUrl: `${baseUrl}${$node.find('h3 a').attr('href')}`
       };
     }).get())
-    .then(result => result.slice(0, 5))
+    .then(result => result.slice(0, 10))
     .then(result => {
       if (!Utils.isLine) {
         res.reply(result.map(item => `${item.title} ${item.linkUrl}`).join("\n"));
@@ -41,7 +41,7 @@ module.exports = robot => {
         })
       });
       
-      res.reply('ヘイお待ち！今はこの映画が上映されているよ！', messageBuilder.build());
+      res.reply('ヘイお待ち！今はこの映画が上映されているよ！');
     })
     .catch(error => console.log(error));
   });
