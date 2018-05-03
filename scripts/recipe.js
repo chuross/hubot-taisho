@@ -28,7 +28,7 @@ module.exports = robot => {
     }).get())
     .then(result => result.slice(0, 3))
     .then(result => {
-      res.reply('ヘイお待ち！献立用意しといたよ！', result.map(`${item.title} / ${item.recipeTime} ${item.linkUrl}`).join("\n"))
+      res.reply('ヘイお待ち！献立用意しといたよ！', result.map(item => `${item.title} / ${item.recipeTime} ${item.linkUrl}`).join("\n"))
 
       return;
       const messageBuilder = new LineMessaging.BuildTemplateMessage.init('へいお待ち！献立用意しといたよ！');
