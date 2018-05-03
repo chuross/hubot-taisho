@@ -17,12 +17,12 @@ module.exports = robot => {
 
   robot.hear(/^大将(!|！)いつもの$/, res => {
     const index = Math.floor(Math.random() * (sushiImageUrls.length - 0));
-    const sushiBaseUrl = sushiImageUrls[index];
+    const sushiImageUrl = sushiImageUrls[index];
     
     if (Utils.isLine) {
-      res.reply('へいお待ち！', new LineMessaging.SendImage(`${sushiBaseUrl}/media?size=l`, `${sushiBaseUrl}/media?size=s`));
+      res.reply('へいお待ち！', new LineMessaging.SendImage(sushiImageUrl, sushiImageUrl));
     } else {
-      res.reply(`ヘイお待ち！\n${sushiBaseUrl}/media?size=l`);
+      res.reply(`ヘイお待ち！\n${sushiImageUrl}`);
     }
   });
 };
