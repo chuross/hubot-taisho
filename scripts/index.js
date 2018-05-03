@@ -10,7 +10,8 @@ const sushiImageUrls = [
   'https://www.instagram.com/p/BiNQnaCFTHU',
   'https://www.instagram.com/p/BiSzAkOHLOQ',
   'https://www.instagram.com/p/BiSTvGgFjJR',
-  'https://www.instagram.com/p/BiSS5vBF93p'
+  'https://www.instagram.com/p/BiSS5vBF93p',
+  'https://www.instagram.com/p/BiSKH1WFxmc'
 ];
 
 module.exports = (robot) => {
