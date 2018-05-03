@@ -1,6 +1,7 @@
 const LineMessaging = require('hubot-line-messaging');
 const axios = require('axios');
 const cheerio = require('cheerio');
+const Utils = require('./libs/Utils');
 
 const baseUrl = 'https://oceans-nadia.com/search';
 
@@ -26,6 +27,11 @@ module.exports = robot => {
       };
     }).get())
     .then(result => {
+      if (!Utils.isLine) {
+        res.reply('すまないねぇこの環境だと非対応だよ');
+        return;
+      }
+
       const messageBuilder = new LineMessaging.BuildTemplateMessage.init('へいお待ち！献立用意しといたよ！');
       
       result.forEach(item => {

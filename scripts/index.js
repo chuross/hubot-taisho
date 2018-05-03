@@ -1,4 +1,5 @@
 const LineMessaging = require('hubot-line-messaging');
+const Utils = require('./libs/Utils');
 
 const sushiImageUrls = [
   'https://www.instagram.com/p/BiOihl7lj6Z',
@@ -18,6 +19,11 @@ module.exports = robot => {
   robot.hear(/^大将(!|！)いつもの$/, res => {
     const index = Math.floor(Math.random() * (sushiImageUrls.length - 0));
     const sushiBaseUrl = sushiImageUrls[index];
-    res.reply(new LineMessaging.SendImage(`${sushiBaseUrl}/media?size=l`, `${sushiBaseUrl}/media?size=s`));
+    
+    if (Utils.isLine) {
+      res.reply(new LineMessaging.SendImage(`${sushiBaseUrl}/media?size=l`, `${sushiBaseUrl}/media?size=s`));
+    } else {
+      res.reply(`ヘイお待ち！\n${sushiBaseUrl}/media?size=l`);
+    }
   });
 };

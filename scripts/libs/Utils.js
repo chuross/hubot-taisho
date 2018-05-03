@@ -1,5 +1,4 @@
-
-module.exports = class Utils {
+class Utils {
 
   static get adminUsers() {
     return (process.env.HUBOT_ADMIN || '').split(',');
@@ -17,3 +16,5 @@ module.exports = class Utils {
     return process.env.ADAPTER_MODE == 'line';
   }
 }
+
+module.exports = Utils;
