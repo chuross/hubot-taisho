@@ -15,7 +15,7 @@ const sushiImageUrls = [
 ];
 
 module.exports = robot => {
-  robot.hear(/^大将いつもの$/, res => {
+  robot.hear(/^大将！いつもの$/, res => {
     const index = Math.floor(Math.random() * (sushiImageUrls.length - 0));
     const sushiBaseUrl = sushiImageUrls[index];
     res.reply(new LineMessaging.SendImage(`${sushiBaseUrl}/media?size=l`, `${sushiBaseUrl}/media?size=s`));
