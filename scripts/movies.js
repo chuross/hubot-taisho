@@ -41,7 +41,7 @@ module.exports = robot => {
         })
       });
       
-      res.reply('ヘイお待ち！今はこの映画が上映されているよ！');
+      res.reply(messageBuilder.build());
     })
     .catch(error => console.log(error));
   });
