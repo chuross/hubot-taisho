@@ -58,7 +58,7 @@ module.exports = robot => {
       token: apiToken,
       commands: commandString
     }).then(result => {
-      res.reply(`予定を登録しといたよ！Todoistで確認してくんな！\nタスク: ${title}`);
+      res.reply(`予定を登録しといたよ！\nTodoistで確認してくんな！\n\nタスク: ${title}`);
     }).catch(error => console.log(error));
   });
 };
