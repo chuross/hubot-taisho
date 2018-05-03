@@ -5,6 +5,8 @@ module.exports = (robot) => {
     res.reply('ヘイ！お待ち！');
 
     const sushiBaseUrl = 'https://www.instagram.com/p/BiQUYnElTyu/media';
-    res.reply(new LineMessaging.SendImage(`${sushiBaseUrl}?size=l`, `${sushiBaseUrl}?size=l`));
+    setTimeout(() => {
+      res.reply(new LineMessaging.SendImage(`${sushiBaseUrl}?size=l`, `${sushiBaseUrl}?size=l`));
+    }, 100);
   });
 };
