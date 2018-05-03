@@ -18,8 +18,8 @@ module.exports = robot => {
         title: $node.find('.p-movie-cassette__info .p-movie-cassette__title').text(),
         thumbnailUrl: $node.find('.p-movie-cassette__info .p-movie-cassette__jacket img').attr('src'),
         linkUrl: `${baseUrl}${$node.find('.p-movie-cassette__info .p-movie-cassette__readmore').attr('href')}`,
-        startAt: $node.find('.p-movie-cassette__other-info span').first().text(),
-        movieTime: $node.find('.p-movie-cassette__other-info span').last().text()
+        startAt: $node.find('.p-movie-cassette__other-info span').eq(0).text(),
+        movieTime: $node.find('.p-movie-cassette__other-info span').eq(2).text()
       };
     }).get())
     .then(result => result.slice(0, 10))
