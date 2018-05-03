@@ -16,7 +16,7 @@ module.exports = robot => {
       const $node = $(node);
       return {
         title: $node.find('h3 a').text(),
-        thumbnailUrl: $node.find('div img').attr('src'),
+        thumbnailUrl: $node.children().last().find('img').attr('src'),
         linkUrl: `${baseUrl}${$node.find('h3 a').attr('href')}`
       };
     }).get())
@@ -26,8 +26,6 @@ module.exports = robot => {
         res.reply(result.map(item => `${item.title} ${item.linkUrl}`).join("\n"));
         return;
       }
-
-      console.log(result);
 
       const messageBuilder = new LineMessaging.BuildTemplateMessage.init('上映中の映画だよ！');
       
