@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.2",
     "hubot": "^2.19.0",
     "hubot-heroku-keepalive": "^1.0.3",
     "hubot-line-messaging": "^0.6.0",

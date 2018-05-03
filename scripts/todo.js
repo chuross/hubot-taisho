@@ -7,10 +7,6 @@ const apiToken = process.env.HUBOT_TODOIST_TOKEN;
 const adminUsers = (process.env.HUBOT_ADMIN || '').split(',');
 const targetProjectId = process.env.HUBOT_TODOIST_PROJECT_ID;
 
-const fetch = axios.create({
-  baseURL: apiBaseUrl
-});
-
 module.exports = robot => {
   robot.hear(/^大将(！|!)予定 (.*) (.+)/, res => {
     if (!adminUsers.includes(res.message.user.id)) {
@@ -55,11 +51,13 @@ module.exports = robot => {
       }
     ]);
 
-    fetch.post('/sync', {
+    axios.post(`${apiBaseUrl}/sync`, {
       token: apiToken,
       commands: commandString
-    }).then(result => {
+    })
+    .then(result => {
       res.reply(`予定を登録しといたよ！\nTodoistで確認してくんな！\n\nタスク: ${title}`);
-    }).catch(error => console.log(error));
+    })
+    .catch(error => console.log(error));
   });
 };

@@ -1,9 +1,17 @@
 const LineMessaging = require('hubot-line-messaging');
+const cheerio = require('cheerio')
+const axios = require('axios');
 
-const imageUrl = 'https://hailstorm.c.yimg.jp/iwiz-weather/raincloud/1525318200/202020-anim-pf1300.gif';
+const weatherUrl = 'https://weather.yahoo.co.jp/weather/raincloud';
 
 module.exports = robot => {
   robot.hear(/^大将(!|！)アメッシュ$/, res => {
-    res.reply(new LineMessaging.SendImage(imageUrl, imageUrl));
+    axios.get(`${weatherUrl}`, {
+      responseType: 'text'
+    })
+    .then(data => cheerio.load(data))
+    .then($ => $('#imgDatCh .mainImg img').attr("src"))
+    .then(imageUrl => res.reply(new LineMessaging.SendImage(imageUrl, imageUrl)))
+    .catch(error => console.log(error))
   });
 };
