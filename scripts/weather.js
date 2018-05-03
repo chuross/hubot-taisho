@@ -11,6 +11,7 @@ module.exports = robot => {
     })
     .then(data => cheerio.load(data))
     .then($ => $('#imgDatCh .mainImg img').attr("src"))
+    .then(imageUrl => console.log(imageUrl))
     .then(imageUrl => res.reply(new LineMessaging.SendImage(imageUrl, imageUrl)))
     .catch(error => console.log(error))
   });
