@@ -22,17 +22,18 @@ module.exports = robot => {
     }).get())
     .then(result => result.slice(0, 10))
     .then(result => {
-      if (Utils.isLine) {
+      if (!Utils.isLine) {
         res.reply(result.map(item => `${item.title} ${item.linkUrl}`).join("\n"));
         return;
       }
 
-      const messageBuilder = new LineMessaging.BuildTemplateMessage.init('献立だよ！');
+      const messageBuilder = new LineMessaging.BuildTemplateMessage.init('上映中の映画だよ！');
       
       result.forEach(item => {
         messageBuilder.carousel({
           thumbnailImageUrl: item.thumbnailUrl,
-          title: item.title
+          title: item.title,
+          text: ''
         });
         messageBuilder.action('uri', {
           label: 'ブラウザで見る',
