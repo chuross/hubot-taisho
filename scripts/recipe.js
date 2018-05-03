@@ -22,12 +22,12 @@ module.exports = robot => {
       $node = $(node);
       return {
         thumbnailUrl: $node.find('.photo-frame img').attr('src'),
-        linkUrl: $node.find('.txt-frame .recipe-title a').attr('href'),
-        title: baseUrl + $node.find('.txt-frame .recipe-titlelink').text(),
+        linkUrl: baseUrl + $node.find('.txt-frame .recipe-title a').attr('href'),
+        title: $node.find('.txt-frame .recipe-titlelink').text(),
         recipeTime: $node.find('.txt-frame .recipeTime').text()
       };
     }).get())
-    .then(result => result.slice(0, 3))
+    .then(result => result.slice(0, 10))
     .then(result => {
       res.reply('ヘイお待ち！献立用意しといたよ！', result.map(item => `${item.title} / ${item.recipeTime} ${item.linkUrl}`).join("\n"))
 
