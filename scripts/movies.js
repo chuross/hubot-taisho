@@ -22,7 +22,7 @@ module.exports = robot => {
     }).get())
     .then(result => result.slice(0, 10))
     .then(result => {
-      if (!Utils.isLine) {
+      if (Utils.isLine) {
         res.reply(result.map(item => `${item.title} ${item.linkUrl}`).join("\n"));
         return;
       }
