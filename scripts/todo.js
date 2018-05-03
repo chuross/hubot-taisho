@@ -12,7 +12,7 @@ const fetch = axios.create({
 });
 
 module.exports = robot => {
-  robot.hear(/^大将(！|!)予定 (.+) (.+)/, res => {
+  robot.hear(/^大将(！|!)予定 (.*) (.+)/, res => {
     if (!adminUsers.includes(res.message.user.id)) {
       console.log(res.message);
       res.reply("お客さんそいつは聞けないねぇ\n権限振ってもらいな");
