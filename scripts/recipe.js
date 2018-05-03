@@ -40,7 +40,7 @@ module.exports = robot => {
         messageBuilder.carousel({
           thumbnailImageUrl: item.thumbnailUrl,
           title: item.title,
-          text: item.recipeTime
+          text: `調理時間: ${item.recipeTime}`
         });
         messageBuilder.action('uri', {
           label: 'ブラウザで見る',
