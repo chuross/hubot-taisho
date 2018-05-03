@@ -17,7 +17,9 @@ module.exports = robot => {
       return {
         title: $node.find('.p-movie-cassette__info .p-movie-cassette__title').text(),
         thumbnailUrl: $node.find('.p-movie-cassette__info .p-movie-cassette__jacket img').attr('src'),
-        linkUrl: `${baseUrl}${$node.find('.p-movie-cassette__info .p-movie-cassette__readmore').attr('href')}`
+        linkUrl: `${baseUrl}${$node.find('.p-movie-cassette__info .p-movie-cassette__readmore').attr('href')}`,
+        startAt: $node.find('.p-movie-cassette__other-info span').first().text(),
+        movieTime: $node.find('.p-movie-cassette__other-info span').last().text()
       };
     }).get())
     .then(result => result.slice(0, 10))
@@ -33,7 +35,7 @@ module.exports = robot => {
         messageBuilder.carousel({
           thumbnailImageUrl: item.thumbnailUrl,
           title: item.title,
-          text: '-'
+          text: `上映日: ${item.startAt} / 上映時間: ${movieTime}`
         });
         messageBuilder.action('uri', {
           label: 'ブラウザで見る',
