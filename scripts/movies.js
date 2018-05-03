@@ -33,7 +33,7 @@ module.exports = robot => {
         messageBuilder.carousel({
           thumbnailImageUrl: item.thumbnailUrl,
           title: item.title,
-          text: ''
+          text: '-'
         });
         messageBuilder.action('uri', {
           label: 'ブラウザで見る',
