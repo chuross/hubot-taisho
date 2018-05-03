@@ -27,6 +27,8 @@ module.exports = robot => {
         return;
       }
 
+      console.log(result);
+
       const messageBuilder = new LineMessaging.BuildTemplateMessage.init('上映中の映画だよ！');
       
       result.forEach(item => {
@@ -41,7 +43,7 @@ module.exports = robot => {
         })
       });
       
-      res.reply(messageBuilder.build());
+      res.reply('ヘイお待ち！上映中の映画だよ！', messageBuilder.build());
     })
     .catch(error => console.log(error));
   });
