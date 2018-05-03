@@ -14,7 +14,7 @@ const sushiImageUrls = [
   'https://www.instagram.com/p/BiSKH1WFxmc'
 ];
 
-module.exports = (robot) => {
+module.exports = robot => {
   robot.hear(/^大将いつもの$/, res => {
     const index = Math.floor(Math.random() * (sushiImageUrls.length - 0));
     const sushiBaseUrl = sushiImageUrls[index];
