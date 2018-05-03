@@ -3,8 +3,8 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const Utils = require('./libs/Utils');
 
-const baseUrl = 'http://eiga.com';
-const rankUrl = `${baseUrl}/now/all/rank/`;
+const baseUrl = 'https://filmarks.com';
+const rankUrl = `${baseUrl}/list/now`;
 
 module.exports = robot => {
   robot.hear(/^大将(!|！)上映中の映画$/, res => {
@@ -12,12 +12,12 @@ module.exports = robot => {
       responseType: 'text'
     })
     .then(response => cheerio.load(response.data))
-    .then($ => $('#now_movies .m_unit').map((index, node) => {
+    .then($ => $('.p-movies-grid .p-movie-cassette').map((index, node) => {
       const $node = $(node);
       return {
-        title: $node.find('h3 a').text(),
-        thumbnailUrl: $node.children().last().find('img').attr('src'),
-        linkUrl: `${baseUrl}${$node.find('h3 a').attr('href')}`
+        title: $node.find('.p-movie-cassette__info .p-movie-cassette__title').text(),
+        thumbnailUrl: $node.find('.p-movie-cassette__info .p-movie-cassette__jacket img').attr('src'),
+        linkUrl: `${baseUrl}${$node.find('.p-movie-cassette__info .p-movie-cassette__people__readmore').attr('href')}`
       };
     }).get())
     .then(result => result.slice(0, 10))
@@ -30,8 +30,10 @@ module.exports = robot => {
       const messageBuilder = new LineMessaging.BuildTemplateMessage.init('上映中の映画だよ！');
       
       result.forEach(item => {
-        messageBuilder.confirm({
-          text: item.title
+        messageBuilder.carousel({
+          thumbnailImageUrl: item.thumbnailUrl,
+          title: item.title,
+          text: '-'
         });
         messageBuilder.action('uri', {
           label: 'ブラウザで見る',
