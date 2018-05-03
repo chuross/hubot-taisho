@@ -17,7 +17,7 @@ module.exports = robot => {
       return {
         title: $node.find('.p-movie-cassette__info .p-movie-cassette__title').text(),
         thumbnailUrl: $node.find('.p-movie-cassette__info .p-movie-cassette__jacket img').attr('src'),
-        linkUrl: `${baseUrl}${$node.find('.p-movie-cassette__info .p-movie-cassette__people__readmore').attr('href')}`
+        linkUrl: `${baseUrl}${$node.find('.p-movie-cassette__info .p-movie-cassette__readmore').attr('href')}`
       };
     }).get())
     .then(result => result.slice(0, 10))
