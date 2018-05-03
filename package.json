@@ -6,7 +6,7 @@
   "description": "A simple helpful robot for your Company",
   "scripts": {
     "start": "bin/hubot",
-    "start:line": "bin/hubot -a line-messaging",
+    "start:line": "ADAPTER_MODE=line bin/hubot -a line-messaging",
     "compile": "tsc scripts-ts/*.ts --outDir scripts",
     "sync": "git push origin master && git push heroku master"
   },

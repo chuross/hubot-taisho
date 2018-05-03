@@ -1,15 +1,14 @@
 const axios = require('axios');
 const uuidv4 = require('uuid/v4');
+const Utils = require('./libs/Utils');
 
 const apiBaseUrl = 'https://todoist.com/api/v7';
-const apiToken = process.env.HUBOT_TODOIST_TOKEN;
 
-const adminUsers = (process.env.HUBOT_ADMIN || '').split(',');
-const targetProjectId = process.env.HUBOT_TODOIST_PROJECT_ID;
+const targetProjectId = Utils.todoistProjectId;
 
 module.exports = robot => {
   robot.hear(/^大将(！|!)予定 (.*) (.+)/, res => {
-    if (!adminUsers.includes(res.message.user.id)) {
+    if (!Utils.adminUsers.includes(res.message.user.id)) {
       console.log(res.message);
       res.reply("お客さんそいつは聞けないねぇ\n権限振ってもらいな");
       return;
@@ -52,7 +51,7 @@ module.exports = robot => {
     ]);
 
     axios.post(`${apiBaseUrl}/sync`, {
-      token: apiToken,
+      token: Utils.todoistApiToken,
       commands: commandString
     })
     .then(result => {
