@@ -9,9 +9,8 @@ module.exports = robot => {
     axios.get(`${weatherUrl}`, {
       responseType: 'text'
     })
-    .then(data => cheerio.load(data))
+    .then(response => cheerio.load(response.data))
     .then($ => $('#imgDatCh .mainImg img').attr("src"))
-    .then(imageUrl => console.log(imageUrl))
     .then(imageUrl => res.reply(new LineMessaging.SendImage(imageUrl, imageUrl)))
     .catch(error => console.log(error))
   });
