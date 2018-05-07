@@ -63,7 +63,7 @@ function getRecipesByKurashiru(query) {
       const id = `${$node.find('.video-list-img').attr('href')}`.substring(9);
       return {
         title: $node.find('.video-list-info .video-list-title a').text(),
-        description: "by クラシル\n" + $node.find('.video-list-info .video-list-introduction').text(),
+        description: `by クラシル\n${$node.find('.video-list-info .video-list-introduction').text()}`,
         thumbnailUrl: `https://video.kurashiru.com/production/videos/${id}/compressed_thumbnail_square_large.jpg`,
         linkUrl: baseUrl + $node.find('.video-list-img').attr('href'),
       };
@@ -83,7 +83,7 @@ function getRecipesByCookpad(query) {
     const $node = $(node);
     return {
       title: $node.find('.recipe-title').text(),
-      description: "by cookpad\n" + $node.find('.recipe_description').text(),
+      description: `by cookpad\n${$node.find('.recipe_description').text().trim()}`,
       linkUrl: baseUrl + $node.find('.recipe-title').attr('href'),
       thumbnailUrl: $node.find('.recipe-image img').attr('src')
     };
