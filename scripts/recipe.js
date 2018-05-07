@@ -22,8 +22,9 @@ module.exports = robot => {
       .filter((index, node) => $(node).find('.pr_logo').get().length === 0)
       .map((index, node) => {
         $node = $(node);
+        const id = `${$node.find('.video-list-img').attr('href')}`.substring(9);
         return {
-          thumbnailUrl: $node.find('.video-list-img img').attr('src'),
+          thumbnailUrl: `https://video.kurashiru.com/production/videos/${id}/compressed_thumbnail_square_large.jpg`,
           linkUrl: baseUrl + $node.find('.video-list-img').attr('href'),
           title: $node.find('.video-list-info .video-list-title a').text(),
           recipeTime: $node.find('.video-list-info .video-list-introduction').text()
