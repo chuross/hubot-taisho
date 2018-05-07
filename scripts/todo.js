@@ -1,3 +1,6 @@
+// Commands:
+//   大将！予定 <日付> <タスク名> - 指定された日付でタスクをTodoistに追加しやすぜ(※要権限) <日付> - 今日・明日またはyyyy-mm-dd
+
 const axios = require('axios');
 const uuidv4 = require('uuid/v4');
 const Utils = require('./libs/Utils');

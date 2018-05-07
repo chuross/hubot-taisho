@@ -1,3 +1,6 @@
+// Commands:
+//   大将！アメッシュ - 関東地方の雨雲画像を表示しやすぜ
+
 const LineMessaging = require('hubot-line-messaging');
 const cheerio = require('cheerio');
 const axios = require('axios');

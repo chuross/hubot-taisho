@@ -1,3 +1,6 @@
+// Commands:
+//   大将！献立 <材料や料理名など> - キーワードに合う料理を紹介しやすぜ
+
 const LineMessaging = require('hubot-line-messaging');
 const axios = require('axios');
 const cheerio = require('cheerio');

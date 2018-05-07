@@ -1,3 +1,6 @@
+// Commands:
+//   大将！上映中の映画 - 上映中の映画一覧をおすすめ順に表示しやすぜ
+
 const LineMessaging = require('hubot-line-messaging');
 const axios = require('axios');
 const cheerio = require('cheerio');
