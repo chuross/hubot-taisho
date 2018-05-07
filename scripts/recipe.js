@@ -3,7 +3,7 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const Utils = require('./libs/Utils');
 
-const baseUrl = 'https://oceans-nadia.com';
+const baseUrl = 'https://www.kurashiru.com';
 const searchUrl = `${baseUrl}/search`;
 
 module.exports = robot => {
@@ -14,19 +14,22 @@ module.exports = robot => {
       return;
     }
 
-    axios.get(`${searchUrl}?q=${encodeURIComponent(query)}`, {
+    axios.get(`${searchUrl}?query=${encodeURIComponent(query.split(' ').join('+'))}`, {
       responseType: 'text'
     })
     .then(response => cheerio.load(response.data))
-    .then($ => $('.rightList ul').eq(1).children().map((index, node) => {
-      $node = $(node);
-      return {
-        thumbnailUrl: $node.find('.photo-frame img').attr('src'),
-        linkUrl: baseUrl + $node.find('.txt-frame .recipe-title a').attr('href'),
-        title: $node.find('.txt-frame .recipe-titlelink').text(),
-        recipeTime: $node.find('.txt-frame .recipeTime').text()
-      };
-    }).get())
+    .then($ => $('.videos-list .video-list-content')
+      .filter((index, node) => $(node).find('.pr_logo').get().length === 0)
+      .map((index, node) => {
+        $node = $(node);
+        return {
+          thumbnailUrl: $node.find('.video-list-img img').attr('src'),
+          linkUrl: baseUrl + $node.find('.video-list-img').attr('href'),
+          title: $node.find('.video-list-info .video-list-title a').text(),
+          recipeTime: $node.find('.video-list-info .video-list-introduction').text()
+        };
+      }).get()
+    )
     .then(result => result.slice(0, 10))
     .then(result => {
       if (result.length === 0) {
