@@ -14,7 +14,7 @@ module.exports = robot => {
       return;
     }
 
-    Promise.all([getRecipesByKurashiru(query), getRecipesByCookpad(query)])
+    Promise.all([getRecipesByKurashiru(query), getRecipesByCookpad(query).catch(error => [])])
       .then(results => results.reduce((curr, result) => curr.concat(result), []))
       .then(result => result.slice(0, 10))
       .then(result => {
