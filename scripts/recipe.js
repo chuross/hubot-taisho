@@ -15,6 +15,7 @@ module.exports = robot => {
     }
 
     getRecipesByKurashiru(query)
+      .then(result => result.length > 0 ? result : getRecipesByCookpad(query))
       .then(result => result.slice(0, 10))
       .then(result => {
         if (result.length === 0) {
@@ -33,7 +34,7 @@ module.exports = robot => {
           messageBuilder.carousel({
             thumbnailImageUrl: item.thumbnailUrl,
             title: item.title,
-            text: item.introduction
+            text: item.description
           });
           messageBuilder.action('uri', {
             label: 'ブラウザで見る',
@@ -61,11 +62,30 @@ function getRecipesByKurashiru(query) {
       $node = $(node);
       const id = `${$node.find('.video-list-img').attr('href')}`.substring(9);
       return {
+        title: $node.find('.video-list-info .video-list-title a').text(),
+        description: 'by クラシル ' + $node.find('.video-list-info .video-list-introduction').text(),
         thumbnailUrl: `https://video.kurashiru.com/production/videos/${id}/compressed_thumbnail_square_large.jpg`,
         linkUrl: baseUrl + $node.find('.video-list-img').attr('href'),
-        title: $node.find('.video-list-info .video-list-title a').text(),
-        introduction: $node.find('.video-list-info .video-list-introduction').text()
       };
     }).get()
   );
+}
+
+function getRecipesByCookpad(query) {
+  const baseUrl = 'https://cookpad.com';
+  const searchUrl = `${baseUrl}/search`;
+
+  return axios.get(`${searchUrl}/${encodeURIComponent(query.split(' '))}`, {
+    responseType: 'text'
+  })
+  .then(response => cheerio.load(response.data))
+  .then($ => $('.recipe-preview').map((index, node) => {
+    const $node = $(node);
+    return {
+      title: $node.find('.recipe-title').text(),
+      description: 'by cookpad ' + $node.find('.recipe_description').text(),
+      linkUrl: baseUrl + $node.find('.recipe-title').attr('href'),
+      thumbnailUrl: $node.find('.recipe-image img').attr('src')
+    };
+  }).get());
 }
