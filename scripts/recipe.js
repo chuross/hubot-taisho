@@ -27,7 +27,7 @@ module.exports = robot => {
           thumbnailUrl: `https://video.kurashiru.com/production/videos/${id}/compressed_thumbnail_square_large.jpg`,
           linkUrl: baseUrl + $node.find('.video-list-img').attr('href'),
           title: $node.find('.video-list-info .video-list-title a').text(),
-          recipeTime: $node.find('.video-list-info .video-list-introduction').text()
+          introduction: $node.find('.video-list-info .video-list-introduction').text()
         };
       }).get()
     )
@@ -39,7 +39,7 @@ module.exports = robot => {
       }
 
       if (!Utils.isLine) {
-        res.reply('ヘイお待ち！献立用意しといたよ！', result.map(item => `${item.title} / ${item.recipeTime} ${item.linkUrl}`).join("\n"))
+        res.reply('ヘイお待ち！献立用意しといたよ！', result.map(item => `${item.title} ${item.linkUrl}`).join("\n"))
         return;
       }
 
@@ -49,7 +49,7 @@ module.exports = robot => {
         messageBuilder.carousel({
           thumbnailImageUrl: item.thumbnailUrl,
           title: item.title,
-          text: `調理時間: ${item.recipeTime}`
+          text: item.introduction
         });
         messageBuilder.action('uri', {
           label: 'ブラウザで見る',
