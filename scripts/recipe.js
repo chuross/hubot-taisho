@@ -56,9 +56,9 @@ function getRecipesByKurashiru(query) {
   const baseUrl = 'https://www.kurashiru.com';
   const searchUrl = `${baseUrl}/search`;
 
-  const url = `${searchUrl}?query=${encodeURIComponent(query.split(' ').join('+'))}`;
+  const url = `${searchUrl}?query=${query.split(' ').map(query => encodeURIComponent(query)).join('+')}`;
 
-  return axios.get(`${searchUrl}?query=${encodeURIComponent(query.split(' ').join('+'))}`, {
+  return axios.get(url, {
     responseType: 'text'
   })
   .then(response => cheerio.load(response.data))
