@@ -40,6 +40,10 @@ module.exports = robot => {
             label: 'ブラウザで見る',
             uri: item.linkUrl
           })
+          messageBuilder.action('uri', {
+            label: '全件の結果を見る',
+            uri: item.moreUrl
+          });
         });
         
         res.reply('ヘイお待ち！献立用意しといたよ！', messageBuilder.build());
@@ -51,6 +55,8 @@ module.exports = robot => {
 function getRecipesByKurashiru(query) {
   const baseUrl = 'https://www.kurashiru.com';
   const searchUrl = `${baseUrl}/search`;
+
+  const url = `${searchUrl}?query=${encodeURIComponent(query.split(' ').join('+'))}`;
 
   return axios.get(`${searchUrl}?query=${encodeURIComponent(query.split(' ').join('+'))}`, {
     responseType: 'text'
@@ -66,6 +72,7 @@ function getRecipesByKurashiru(query) {
         description: `by クラシル\n${$node.find('.video-list-info .video-list-introduction').text()}`,
         thumbnailUrl: `https://video.kurashiru.com/production/videos/${id}/compressed_thumbnail_square_large.jpg`,
         linkUrl: baseUrl + $node.find('.video-list-img').attr('href'),
+        moreUrl: url
       };
     }).get()
   );
@@ -75,7 +82,9 @@ function getRecipesByCookpad(query) {
   const baseUrl = 'https://cookpad.com';
   const searchUrl = `${baseUrl}/search`;
 
-  return axios.get(`${searchUrl}/${encodeURIComponent(query)}`, {
+  const url = `${searchUrl}/${encodeURIComponent(query)}`;
+
+  return axios.get(url, {
     responseType: 'text'
   })
   .then(response => cheerio.load(response.data))
@@ -85,7 +94,8 @@ function getRecipesByCookpad(query) {
       title: $node.find('.recipe-title').text(),
       description: `by cookpad\n${$node.find('.recipe_description').text().trim()}`,
       linkUrl: baseUrl + $node.find('.recipe-title').attr('href'),
-      thumbnailUrl: $node.find('.recipe-image img').attr('src')
+      thumbnailUrl: $node.find('.recipe-image img').attr('src'),
+      moreUrl: url
     };
   }).get());
 }
