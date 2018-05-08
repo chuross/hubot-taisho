@@ -1,5 +1,5 @@
 // Commands:
-//   大将！たべろぐ <キーワード> - 周辺のおいしいもの探しやすぜ
+//   大将！たべろぐ <場所> <キーワード> - 周辺のおいしいもの探しやすぜ
 
 const LineMessaging = require('hubot-line-messaging');
 const axios = require('axios');
