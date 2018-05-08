@@ -41,7 +41,7 @@ module.exports = robot => {
             uri: item.linkUrl
           })
           messageBuilder.action('uri', {
-            label: 'このサービス内の全件を見る',
+            label: 'このサービスの全件を見る',
             uri: item.moreUrl
           });
         });
