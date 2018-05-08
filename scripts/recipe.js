@@ -24,7 +24,7 @@ module.exports = robot => {
         }
 
         if (!Utils.isLine) {
-          res.reply('ヘイお待ち！献立用意しといたよ！', result.map(item => `${item.title} ${item.linkUrl}`).join("\n"))
+          res.reply('ヘイお待ち！献立用意しといたよ！', result.map(item => `${item.title}\n${item.linkUrl}`).join("\n\n"))
           return;
         }
 
@@ -75,7 +75,7 @@ function getRecipesByCookpad(query) {
   const baseUrl = 'https://cookpad.com';
   const searchUrl = `${baseUrl}/search`;
 
-  return axios.get(`${searchUrl}/${encodeURIComponent(query.split(' '))}`, {
+  return axios.get(`${searchUrl}/${encodeURIComponent(query)}`, {
     responseType: 'text'
   })
   .then(response => cheerio.load(response.data))
