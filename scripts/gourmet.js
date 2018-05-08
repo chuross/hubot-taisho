@@ -1,5 +1,5 @@
 // Commands:
-//   大将！おいしいもの <場所> <キーワード> - 周辺のおいしいもの探しやすぜ
+//   大将！グルメ <場所> <キーワード> - 周辺のおいしいもの探しやすぜ
 
 const LineMessaging = require('hubot-line-messaging');
 const axios = require('axios');
@@ -10,9 +10,9 @@ const baseUrl = 'https://tabelog.com';
 const searchUrl = `${baseUrl}/rst/rstsearch?voluntary_search=1&LstKind=1`;
 
 module.exports = robot => {
-  robot.hear(/大将(!|！)おいしいもの (.+) (.+)/, res => {
-    const place = res.match[2];
-    const keyword = res.match[3];
+  robot.hear(/大将(!|！)(ぐるめ|グルメ) (.+) (.+)/, res => {
+    const place = res.match[3];
+    const keyword = res.match[4];
 
     if (place.length === 0) {
       res.reply('探す場所を教えてくんな！');
