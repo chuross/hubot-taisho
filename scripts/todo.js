@@ -10,7 +10,7 @@ const apiBaseUrl = 'https://todoist.com/api/v7';
 const targetProjectId = Utils.todoistProjectId;
 
 module.exports = robot => {
-  robot.hear(/^大将(！|!)予定 (.*) (.+)/, res => {
+  robot.hear(/^大将(！|!)予定 (.*) (.+)/, async res => {
     if (!Utils.adminUsers.includes(res.message.user.id)) {
       console.log(res.message);
       res.reply("お客さんそいつは聞けないねぇ\n権限振ってもらいな");
@@ -53,13 +53,15 @@ module.exports = robot => {
       }
     ]);
 
-    axios.post(`${apiBaseUrl}/sync`, {
-      token: Utils.todoistApiToken,
-      commands: commandString
-    })
-    .then(result => {
+    try {
+      const response = await axios.post(`${apiBaseUrl}/sync`, {
+        token: Utils.todoistApiToken,
+        commands: commandString
+      });
+
       res.reply(`予定を登録しといたよ！\nTodoistで確認してくんな！\n\nタスク: ${title}`);
-    })
-    .catch(error => console.log(error));
+    } catch (error) {
+      console.log(error)
+    }    
   });
 };
