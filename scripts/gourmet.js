@@ -87,8 +87,8 @@ async function getGourmets(rankUrl) {
 }
 
 function getRatingText(rating) {
-  const point = rating[0];
-  switch (point) {
+  const point = Math.round(rating);
+  switch (`${point}`) {
     case '1': return '★☆☆☆☆'
     case '2': return '★★☆☆☆'
     case '3': return '★★★☆☆'
