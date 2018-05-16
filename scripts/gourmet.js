@@ -10,7 +10,7 @@ const baseUrl = 'https://tabelog.com';
 const searchUrl = `${baseUrl}/rst/rstsearch?voluntary_search=1&LstKind=1`;
 
 module.exports = robot => {
-  robot.hear(/大将(!|！)(ぐるめ|グルメ) (.+) (.+)/, res => {
+  robot.hear(/大将(!|！)(ぐるめ|グルメ) (.+) (.+)/, async res => {
     const place = res.match[3];
     const keyword = res.match[4];
 
@@ -23,27 +23,12 @@ module.exports = robot => {
       return;
     }
 
-    axios.get(`${searchUrl}&sa=${encodeURIComponent(place)}&sk=${encodeURIComponent(keyword)}`, {
-      responseType: 'text'
-    })
-    .then(response => cheerio.load(response.data))
-    .then($ => $('.navi-rstlst__link--rank').attr('href'))
-    .then(rankUrl => axios.get(rankUrl, { responseType: 'text' }))
-    .then(response => cheerio.load(response.data))
-    .then($ => $('.rstlist-info > .list-rst').map((index, node) => {
-      const $node = $(node);
-      return {
-        title: $node.find('.list-rst__rst-name a').text(),
-        area: $node.find('.list-rst__area-genre').text().split('/')[0].trim(),
-        rating: $node.find('.list-rst__rating-val').text(),
-        nightPrice: $node.find('.list-rst__budget li').first().find('.list-rst__budget-val').text(),
-        dayPrice: $node.find('.list-rst__budget li').last().find('.list-rst__budget-val').text(),
-        linkUrl: $node.find('.list-rst__rst-name a').attr('href'),
-        thumbnailUrl: $node.find('.cpy-main-image').attr('data-original').replace('150x150', '320x320')
-      };
-    }).get())
-    .then(result => result.slice(0, 10))
-    .then(result => {
+    try {
+      const rankUrl = await getRankUrl(place, keyword);
+      const groumets = await getGourmets(rankUrl);
+
+      const result = groumets.slice(0, 10);
+
       if (result.length === 0) {
         res.reply('すまないねぇ該当のお店が無かったよ');
         return;
@@ -69,10 +54,37 @@ module.exports = robot => {
       });
       
       res.reply('ヘイお待ち！いい店探しといたよ！', messageBuilder.build());
-    })
-    .catch(error => console.log(error));
+    } catch (error) {
+      console.log(error);
+    }
   });
 };
+
+async function getRankUrl(place, keyword) {
+  const response = await axios.get(`${searchUrl}&sa=${encodeURIComponent(place)}&sk=${encodeURIComponent(keyword)}`, {
+    responseType: 'text'
+  });
+  const $ = cheerio.load(response.data);
+  return $('.navi-rstlst__link--rank').attr('href');
+}
+
+async function getGourmets(rankUrl) {
+  const response = await axios.get(rankUrl, { responseType: 'text' });
+  const $ = cheerio.load(response.data);
+
+  return $('.rstlist-info > .list-rst').map((index, node) => {
+      const $node = $(node);
+      return {
+        title: $node.find('.list-rst__rst-name a').text(),
+        area: $node.find('.list-rst__area-genre').text().split('/')[0].trim(),
+        rating: $node.find('.list-rst__rating-val').text(),
+        nightPrice: $node.find('.list-rst__budget li').first().find('.list-rst__budget-val').text(),
+        dayPrice: $node.find('.list-rst__budget li').last().find('.list-rst__budget-val').text(),
+        linkUrl: $node.find('.list-rst__rst-name a').attr('href'),
+        thumbnailUrl: $node.find('.cpy-main-image').attr('data-original').replace('150x150', '320x320')
+      };
+    }).get();
+}
 
 function getRatingText(rating) {
   const point = rating[0];
