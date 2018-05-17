@@ -69,21 +69,26 @@ async function getRankUrl(place, keyword) {
 }
 
 async function getGourmets(rankUrl) {
-  const response = await axios.get(rankUrl, { responseType: 'text' });
-  const $ = cheerio.load(response.data);
+  try {
+    const response = await axios.get(rankUrl, { responseType: 'text' });
+    const $ = cheerio.load(response.data);
 
-  return $('.rstlist-info > .list-rst').map((index, node) => {
-      const $node = $(node);
-      return {
-        title: $node.find('.list-rst__rst-name a').text(),
-        area: $node.find('.list-rst__area-genre').text().split('/')[0].trim(),
-        rating: $node.find('.list-rst__rating-val').text(),
-        nightPrice: $node.find('.list-rst__budget li').first().find('.list-rst__budget-val').text(),
-        dayPrice: $node.find('.list-rst__budget li').last().find('.list-rst__budget-val').text(),
-        linkUrl: $node.find('.list-rst__rst-name a').attr('href'),
-        thumbnailUrl: $node.find('.cpy-main-image').attr('data-original').replace('150x150', '320x320')
-      };
-    }).get();
+    return $('.rstlist-info > .list-rst').map((index, node) => {
+        const $node = $(node);
+        return {
+          title: $node.find('.list-rst__rst-name a').text(),
+          area: $node.find('.list-rst__area-genre').text().split('/')[0].trim(),
+          rating: $node.find('.list-rst__rating-val').text(),
+          nightPrice: $node.find('.list-rst__budget li').first().find('.list-rst__budget-val').text(),
+          dayPrice: $node.find('.list-rst__budget li').last().find('.list-rst__budget-val').text(),
+          linkUrl: $node.find('.list-rst__rst-name a').attr('href'),
+          thumbnailUrl: $node.find('.cpy-main-image').attr('data-original').replace('150x150', '320x320')
+        };
+      }).get();
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
 }
 
 function getRatingText(rating) {
