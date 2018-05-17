@@ -78,6 +78,7 @@ async function getRecipesByKurashiru(query) {
       }).get();
   } catch (error) {
     console.log(error);
+    return [];
   }
 }
 
@@ -103,5 +104,6 @@ async function getRecipesByCookpad(query) {
       }).get();
   } catch (error) {
     console.log(error);
+    return [];
   }
 }
